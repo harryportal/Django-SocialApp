@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<h1>Enter your details to Sign-In</h1>
+{% if form.errors %}
+<p>Login not Successful, Please try again</p>
+{% endif %}
+<div class="login-form">
+<form method="post" action="{% url 'sign_in' %}">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">  <!--To redirect the user to a page that was clicked -->
+    <p><input type="submit" value="Log In"></p>
+</form>
+    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+    </div>
+<div class="social">
+    <ul>
+        <li class="facebook">
+            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+        </li>
+        <li class="google">
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with
+Google</a>
+</li>
+    </ul>
+</div>
+{% endblock %}
